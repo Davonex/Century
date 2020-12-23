@@ -1,0 +1,39 @@
+<html>
+<head>
+  <title>Socket IO Demo</title>
+  <link rel="stylesheet" type="text/css" href="css/century.css">
+</head>
+<body>
+
+  <div id="join-game">
+    <h1>Codenames</h1>
+    <form>
+      <div class='join-input'>
+        <label for='join-nickname'>Nom: </label>
+        <input id='join-nickname' type='text' maxlength="10"></input>
+      </div>
+      <div class='join-input'>
+        <label for='join-room'>Salle: </label>
+        <input id='join-room' type='text' maxlength="10"></input>
+      </div>
+      <div class='join-input'>
+        <label for='join-password'>Mot de passe: </label>
+        <input id='join-password' type='password' maxlength="20"></input>
+      </div>
+    </form>
+    <p id='error-message'> </p>
+    <button id='join-enter'>Entrez dans la salle</button>
+    <button id='join-create'>Creez une salle</button>
+  </div>
+  
+ 
+
+  <!-- <script src="http://code.jquery.com/jquery-1.5.min.js"></script> -->
+  <!-- <script src="/socket.io/socket.io.js"></script> -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js'></script>
+  <script src="/js/century.js"></script>
+
+</body>
+</html>
+
