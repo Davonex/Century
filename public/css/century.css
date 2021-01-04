@@ -2,7 +2,7 @@ body {
   margin: 0;
   margin-top: 32px;
   background: #323032;
-  color: #323032;
+  color: #ffffff;
   font-family: 'Changa', sans-serif;
 }
 
@@ -80,3 +80,7 @@ body {
     border-radius: 3px !important;
     border-style: solid;
   }
+
+
+
+  

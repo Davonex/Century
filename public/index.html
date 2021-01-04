@@ -1,38 +1,55 @@
 <html>
 <head>
   <title>Socket IO Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" type="text/css" href="css/century.css">
+
 </head>
 <body>
 
-  <div id="join-game">
-    <h1>Codenames</h1>
-    <form>
-      <div class='join-input'>
-        <label for='join-nickname'>Nom: </label>
-        <input id='join-nickname' type='text' maxlength="10"></input>
-      </div>
-      <div class='join-input'>
-        <label for='join-room'>Salle: </label>
-        <input id='join-room' type='text' maxlength="10"></input>
-      </div>
-      <div class='join-input'>
-        <label for='join-password'>Mot de passe: </label>
-        <input id='join-password' type='password' maxlength="20"></input>
-      </div>
-    </form>
-    <p id='error-message'> </p>
-    <button id='join-enter'>Entrez dans la salle</button>
-    <button id='join-create'>Creez une salle</button>
+  <div id="identification" class="w3-modal">
+    <!-- <h1>Dixit</h1> -->
+	<!-- <h1><img src="/images/logo.png" alt="Dixit" height="124" width="350" ></h1> -->
+	<div class="w3-modal-content" >
+		<form action="w3-container">
+			<h1 class="w3-center">Century : La route des épices</h1>
+
+			<label>Pseudo</label>
+			<input class="w3-input w3-border" type="text" placeholder="Pseudo" required="" name="NickName">
+
+			<label>Salle</label>
+			<input class="w3-input w3-border" type="text" placeholder="Salle" required="" name="Room">
+
+			<p id='error-message'> </p>
+			
+			<div class="w3-section w3-center">
+				<button class="w3-button w3-Green " type="ENTER">
+					<i class="fa fa-paper-plane"></i> ENTRER DANS LA SALLE
+				</button>
+				<button class="w3-button w3-red" type="CREATE">
+					<i class="fa fa-paper-plane"></i> CREER UNE SALLE
+				</button>
+			</div>
+		</form>
+	</div>
   </div>
+  
+  <div class="w3-display-container" style="height:100%;">
+		<div id="tchat" class="w3-display-bottomleft">
+		</div>
+
+  </div>
+
+</body>
   
  
 
-  <!-- <script src="http://code.jquery.com/jquery-1.5.min.js"></script> -->
-  <!-- <script src="/socket.io/socket.io.js"></script> -->
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.js'></script>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js'></script>
-  <script src="/js/century.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js'></script> -->
+  <script src="/js/public-century.js"></script>
 
 </body>
 </html>
