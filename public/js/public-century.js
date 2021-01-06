@@ -47,7 +47,27 @@ var divTchat = $('#tchat');
     divTchat.append('<div class="line"><b>'+message.pseudo+'</b> : '+message.msg+'</div>');
  });
 
-
+// Pseudo
+		$("#validate-pseudo").click(function(){
+				// Envoi le pseudo
+		  connect.emit('ConnectPseudo', {pseudo:$("#pseudo").val()});
+		});
+		
+		
+		connect.on('Message', (data) =>{      // Response to creating room
+			msg = "<li>" + data.success + " : " + data.msg + "</li>";
+			$(msg).appendTo('#messages')
+		  <!-- $('#messages').text(msg); -->
+		  <!-- console.log (data); -->
+		});
+		
+		
+		connect.on ('Pseudo', (data) => {
+			pseudo = data.pseudo
+			$("#join-lobby").hide();
+			console.info(pseudo);	
+			$('#H1-Pseudo').text(pseudo);
+		});
 
 
 
