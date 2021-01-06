@@ -16,9 +16,15 @@
 
  var InputPseudo = $("#input_pseudo");
 
+ var JoinPseudo = $("#join_pseudo");
+ var JoinRoom = $("#join_room");
+ 
+
 
  if (typeof(pseudo) === 'undefined' || pseudo === "")  {
-    $("#identification").show();
+   JoinPseudo.show();
+ } else if (typeof(room) === 'undefined' || room === "") {
+   JoinRoom.show();
  }
 
     
@@ -35,7 +41,7 @@ $("#submit-pseudo").click (function(){
 
 connect.on('Pseudo',(data) => {
    pseudo = data.pseudo
-   $("#identification").hide();
+   JoinPseudo.hide();
 });
  
 
