@@ -92,22 +92,29 @@ var socket = io.listen(app, {
   transports: ['websocket', 'flashsocket', 'htmlfile', 'xhr-multipart', 'xhr-polling', 'jsonp-polling']
 }); */
 
+const LobbyClass = require('./server/LobbyClass.js')
+var lobby = new LobbyClass ();
 
 
 
 // Quand une personne se connecte au serveur
-io.on('connection', function(socket) {
+io.on('connection', function(connect) {
 
-    // ConnectID => socket.id
-    cid = socket.id;
-    message = 'socket.id : ' + cid;
-    console.log (message);
-    //SessionID => socket.handshake.headers.cookie
-    sid = cookie.parse (socket.handshake.headers.cookie)['connect.sid'].substr(2, 32)
-    message = '      sid : ' + sid
-    console.log (message);
-  
+    // ConnectID => connect.id
+    cid = connect.id;
+    // message = 'CID : ' + cid;
+    // _Log (message);
+    //SessionID => connect.handshake.headers.cookie
+     sid = cookie.parse (connect.handshake.headers.cookie)['connect.sid'].substr(2, 32)
+    //sid = connect.handshake.headers
+    // message = 'SID : ' + sid
+    // _Log (message);
+	if (lobby.PlayerExist (sid)) { 
+		connect.emit('Pseudo', {pseudo:lobby.players_list[sid].GetPseudo()})
+		};
     //io.emit('message', {pseudo:"SRV", msg:message})
+	
+	connect.on('ConnectPseudo', (data) => {lobby.AddPlayer(data,connect,sid)});
     
 }); 
 
