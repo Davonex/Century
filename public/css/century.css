@@ -2,85 +2,53 @@ body {
   margin: 0;
   margin-top: 32px;
   background: #323032;
-  color: #ffffff;
   font-family: 'Changa', sans-serif;
 }
 
-* {
-  transition: 0.1s ease-in-out;
-  z-index: 1;
+/* Bordered form */
+form {
+  border: 3px solid #f1f1f1;
 }
 
+/* Full-width inputs */
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
 
-#join-game {
-    position: absolute;
-    width: 400px;
-    background: #F8FDFF;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 10px;
-  }
-  
-  #join-game h1{
-    color: #323032;
-    font-size: 32px;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-  }
-  
-  #join-game .join-input {
-    position: relative;
-    display: block;
-    width: 275px;
-    margin: 0 auto;
-    text-align: left;
-  }
-  
-  #join-game .join-input input{
-    float: right;
-    line-height: 18px;
-  }
-  
-  #join-game button {
-    position: relative;
-    margin: 1%;
-    border-radius: 3px;
-    border: 2px solid #686c6d;
-    box-sizing: border-box;
-    padding: 4px;
-    width: 48%;
-    font-size: 16px;
-    background: #686c6d;
-    color: #F8FDFF;
-  }
-  
-  #join-game #join-enter {
-    float: left;
-  }
-  
-  #join-game #join-enter:hover {
-    background: #B32728;
-  }
-  
-  #join-game #join-create:hover {
-    background: #11779F
-  }
-  
-  #join-game #error-message {
-    height: 15px;
-    text-align: center;
-    margin-top: 5px;
-  }
+/* Set a style for all buttons */
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
 
-  button {
-    cursor: pointer;
-    font-family: 'Changa', sans-serif;
-    border-radius: 3px !important;
-    border-style: solid;
-  }
+/* Add a hover effect for buttons */
+button:hover {
+  opacity: 0.8;
+}
 
+/* Center the avatar image inside this container */
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+}
 
+/* Avatar image */
+img.avatar {
+  width: 20%;
+  border-radius: 50%;
+}
 
-  
+/* Add padding to containers */
+.container {
+  padding: 16px;
+}

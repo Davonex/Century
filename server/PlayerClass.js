@@ -1,8 +1,20 @@
-var Player = function (sessionID) {
-    this.socketID = "";
-    this.sessionID = sessionID;
-    this.pseudo = ""
+
+class PlayerClass {
+	
+	constructor (cid,sid,pseudo){
+		this.cid = cid;
+		this.sid = sid;
+		this.pseudo = pseudo;
+		this.roomid = "";
+	}
+	
+	SetPseudo (pseudo) {
+		this.pseudo = pseudo;
+	}
+	
+	GetPseudo () {
+		return this.pseudo;
+	}
 }
 
-
-exports.Player = Player;
+module.exports = PlayerClass;

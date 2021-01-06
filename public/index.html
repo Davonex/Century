@@ -8,33 +8,32 @@
 </head>
 <body>
 
+
+	<!-- contenaire d'identification  -->
   <div id="identification" class="w3-modal">
     <!-- <h1>Dixit</h1> -->
 	<!-- <h1><img src="/images/logo.png" alt="Dixit" height="124" width="350" ></h1> -->
-	<div class="w3-modal-content" >
-		<form action="w3-container">
-			<h1 class="w3-center">Century : La route des épices</h1>
+	<div class="w3-modal-content animate" >
+		<h1 class="w3-center">Century : La route des épices</h1>
+			<div class="imgcontainer">
+				<img src="https://www.w3schools.com/w3css/img_avatar3.png" alt="Avatar" class="avatar">
+			  </div>
 
-			<label>Pseudo</label>
-			<input class="w3-input w3-border" type="text" placeholder="Pseudo" required="" name="NickName">
-
-			<label>Salle</label>
-			<input class="w3-input w3-border" type="text" placeholder="Salle" required="" name="Room">
-
-			<p id='error-message'> </p>
+			<div class="container">
+				<label for="pseudo"><b>Pseudo</b></label>
+				<input id="input_pseudo" type="text" placeholder="Entrez votre Pseudo" name="pseudo" required>
 			
-			<div class="w3-section w3-center">
-				<button class="w3-button w3-Green " type="ENTER">
-					<i class="fa fa-paper-plane"></i> ENTRER DANS LA SALLE
-				</button>
-				<button class="w3-button w3-red" type="CREATE">
-					<i class="fa fa-paper-plane"></i> CREER UNE SALLE
-				</button>
+				<!-- <label for="psw"><b>Password</b></label> -->
+				<!-- <input type="password" placeholder="Enter Password" name="psw" required> -->
+			
+				<button id="submit-pseudo">Ok</button>
 			</div>
-		</form>
 	</div>
   </div>
+
+
   
+  <!-- containeur messages server -->
   <div class="w3-display-container" style="height:100%;">
 		<div id="tchat" class="w3-display-bottomleft">
 		</div>
