@@ -1,3 +1,4 @@
+"use strict";
 
     var connect = io() // Connect to server
     // connection au serveur 
@@ -15,16 +16,16 @@
  var divTchat = $('#tchat');
 
  var InputPseudo = $("#input_pseudo");
+// Form to Add or Join room
+ var DivJoin = $("#join-pseudo");
 
- var JoinPseudo = $("#join_pseudo");
- var JoinRoom = $("#join_room");
  
 
 
  if (typeof(pseudo) === 'undefined' || pseudo === "")  {
-   JoinPseudo.show();
+  DivJoin.show();
  } else if (typeof(room) === 'undefined' || room === "") {
-   JoinRoom.show();
+  DivJoin.show();
  }
 
     

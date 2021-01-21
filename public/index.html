@@ -1,47 +1,132 @@
 <html>
 <head>
-  <title>Socket IO Demo</title>
+  <title>Century : route des epices</title>
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300;400&display=swap" rel="stylesheet">
+
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="css/century.css">
 
 </head>
 <body>
-
-
-	<!-- contenaire d'identification  -->
-  <div id="join_pseudo" class="w3-modal w3-animate-top">
-    <!-- <h1>Dixit</h1> -->
-	<!-- <h1><img src="/images/logo.png" alt="Dixit" height="124" width="350" ></h1> -->
-	<div class="w3-modal-content" >
-		<h1 class="w3-center">Century : La route des épices</h1>
-			<div class="imgcontainer">
-				<img src="https://www.w3schools.com/w3css/img_avatar3.png" alt="Avatar" class="avatar">
-			  </div>
-
-			<div class="container">
-				<label for="pseudo"><b>Pseudo</b></label>
-				<input id="input_pseudo" type="text" placeholder="Entrez votre Pseudo" name="pseudo" required>
-			
-				<!-- <label for="psw"><b>Password</b></label> -->
-				<!-- <input type="password" placeholder="Enter Password" name="psw" required> -->
-			
-				<button id="submit-pseudo">Ok</button>
-			</div>
-	</div>
-  </div>
-
-  <div id="join_room" class="w3-modal w3-animate-top">
-	<div class="w3-modal-content" >
-	</div>
-  </div>
-
-  <!-- containeur messages server -->
-  <div class="w3-display-container" style="height:100%;">
-		<div id="tchat" class="w3-display-bottomleft">
+<!-- The Modal -->
+<div id="join-pseudo" class="w3-modal">
+	<div class="w3-modal-content">
+  
+	  <!-- entete -->
+	  <div class="w3-container w3-theme-dark">
+  
+		<span onclick="document.getElementById('Join-Pseudo').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+  
+		<h2>Joindre ou Creer une Salle</h2>
+	  </div>
+		  
+		  
+  
+	  <!-- Formulaire -->
+	  <div class="w3-container w3-theme">
+		<!-- pseudo -->
+		
+		  <p><label>Pseudo</label></p>
+		  <!-- <div class="w3-row-padding"> -->
+		  <!--  <div class="w3-col s11"> -->
+				  <div class="w3-panel" style="">
+			  <input id="input-pseudo" class="w3-input" type="text" name="pseudo" style="display: inline; padding-right: 7%;">
+					   <i id="icon-pseudo"class="fa fa-times-circle icon w3-text-red fa-2x" ></i>
+				  
+		  <!-- </div> -->
+		  <!-- </div> -->
 		</div>
+			  
+		<div id="add-room" style="display: none">
+		  <p><label>Saisissiez le nom de la nouvelle Salle</label></p>
+		  <div class="w3-panel">
+				  <!--
+					<div class="w3-col s1 w3-center w3-container ">
+			  <span id="btn-close-add-room" class="debug fa fa-window-close"></span>
+			</div>
+					  -->
+			<!-- <div class="w3-col s12"> -->
+						  <span id="btn-close-add-room" class="fa fa-window-close w3-text-black" style="font-size:38px;"></span>
+			  <input id="input-add-room-name" class="w3-input" type="text" name="room" style="display: inline; padding-right: 7%; padding-left: 15%; ">
+						  <i id="icon-add-room-name"class="fa fa-times-circle icon w3-text-red" style="font-size:30px;"></i>
+			<!-- </div> -->
+		  
+		  </div>
+		</div>
+  
+  
+		<div id="join-room">		  
+		  <p><label>Se joindre à une Salle</label></p>
+  
+		  <!-- Salle -->
+		  <div class="w3-row-padding">
+			<!--	
+			<div id="un" class="w3-col l2 m4 s4 w3-cards-4 w3-center">						  
+			  <button id_room="101" id="room_101" class="w3-btn btn-room ">
+				<div class="game"></div> 				  
+			  </button>		  
+			  <div class="w3-container w3-center">
+				<p>Room Name</p>
+			  </div>
+  
+			</div>
+  
+			<div id="deux" class="w3-col l2 m4 s4 m2 w3-cards-2 w3-center">
+			  <button id_room="225" id="room_225" class="w3-btn btn-room">
+				<div class="game"></div>
+			  </button>
+			  <div class="w3-container w3-center">
+				<p>Room Name</p>
+			  </div>
+			</div>
+		-->
+			<div id="trois"   class="w3-col l2 m2 s4 w3-cards w3-center">
+			  <button id="btn-add-room" id_room="0" class="w3-btn">
+				<!-- <img src="https://i.postimg.cc/DfMwV3NR/plus.png" class="century"> -->
+				<img class="game-add">
+			  </button>
+			  <div class="w3-container w3-center">
+				<p>Creez Salle</p>
+			  </div>
+			</div>
+					  
+		  </div>
+  
+		</div> <!-- end salle-->
+  
+		<p>&nbsp;</p>
+	  </div>
+  
+  
+  
+	  <!-- Footer -->
+  
+	  <div class="w3-container w3-theme-dark">
+		<p class="w3-row">
+  
+		  <span class="w3-col l8 s8">&nbsp;
+			<input id="room-select" type="hidden" disabled name="room_id">
+  
+		  </span>
+		  <button id="room_submit" class="w3-col l4 s4 w3-button w3-theme-l1">Joindre</button>
+		</p>
+  
+	  </div>
+  
+	</div>
+	  
+  
+</div> <!-- id="Join-Pseudo" -->
 
-  </div>
+
+
+
+
 
 </body>
   
@@ -52,6 +137,7 @@
   <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.js'></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js'></script> -->
   <script src="/js/public-century.js"></script>
+  <script src="/js/join-add-room.js"></script>
 
 </body>
 </html>
