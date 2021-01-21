@@ -1,3 +1,5 @@
+"use strict";
+
 //Express
 var express = require('express');
 // Session
@@ -81,17 +83,7 @@ app.use(express.static('public'))
 
 
 
-// Objects to keep track of sockets, rooms and players
-// let CLIENT_LIST = {};
-// let ROOM_LIST = {};
-// let PLAYER_LIST = {};
-// var messages = [];
-/* 
-var socket = io.listen(app, {
-  flashPolicyServer: false,
-  transports: ['websocket', 'flashsocket', 'htmlfile', 'xhr-multipart', 'xhr-polling', 'jsonp-polling']
-}); */
-
+//  Defined Lobby
 const LobbyClass = require('./server/LobbyClass.js')
 var lobby = new LobbyClass ();
 
@@ -100,14 +92,10 @@ var lobby = new LobbyClass ();
 io.on('connection', function(connect) {
 
     // ConnectID => connect.id
-    cid = connect.id;
-    // message = 'CID : ' + cid;
-    // _Log (message);
+    let cid = connect.id;
     //SessionID => connect.handshake.headers.cookie
-     sid = cookie.parse (connect.handshake.headers.cookie)['connect.sid'].substr(2, 32)
-    //sid = connect.handshake.headers
-    // message = 'SID : ' + sid
-    // _Log (message);
+     let sid = cookie.parse (connect.handshake.headers.cookie)['connect.sid'].substr(2, 32)
+
 	if (lobby.PlayerExist (sid)) { 
 		connect.emit('Pseudo', {pseudo:lobby.players_list[sid].GetPseudo()})
 		};
@@ -115,7 +103,7 @@ io.on('connection', function(connect) {
 	
 	connect.on('ConnectPseudo', (data) => {lobby.AddPlayer(data,connect,sid)});
     
-}); 
+
 
     
     // Test si le SID existe deja
@@ -126,5 +114,4 @@ io.on('connection', function(connect) {
     
     connect.on('ConnectPseudo', (data) => {lobby.AddPlayer(data,connect,sid)});
 
-    
-}); 
+  });     

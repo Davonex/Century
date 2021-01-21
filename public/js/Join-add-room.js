@@ -1,4 +1,4 @@
-//$("Join-room")
+"use strict";
 
 $("#btn-add-room").click(function() {
     console.log("Click : " + $(this).attr("id"));
@@ -99,14 +99,14 @@ $("#btn-add-room").click(function() {
                   // JOIN ROOM SELECT 
                   console.log("emit ADD_ROOM : " + $("#input-add-room-name").val() );
                   alert ("emit ADD_ROOM : " + $("#input-add-room-name").val() );
-                  connect.emit('ConnectAddRoom', { pseudo: $("#input-pseudo").val(); room_name: $("#input-add-room-name").val() });
+                  connect.emit('ConnectAddRoom', { pseudo: $("#input-pseudo").val(), room_name: $("#input-add-room-name").val() });
                   } 
           
           } else {
               //  join room select 
               console.log("emit JOIN_ROOM  \n PSEUDO : " + $("#input-pseudo").val() + " ; ROOM_ID : " +  id_room );
               alert ("emit JOIN_ROOM  \n PSEUDO : " + $("#input-pseudo").val() + " ; ROOM_ID : " +  id_room );
-              connect.emit('ConnectJoinRoom', { pseudo: $("#input-pseudo").val(); room_id: id_room) });
+              connect.emit('ConnectJoinRoom', { pseudo: $("#input-pseudo").val(), room_id: id_room });
           }
   });
   
