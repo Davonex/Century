@@ -50,7 +50,27 @@ connect.on('Pseudo',(data) => {
 
 
 
-
+// Pseudo
+		$("#validate-pseudo").click(function(){
+				// Envoi le pseudo
+		  connect.emit('ConnectPseudo', {pseudo:$("#pseudo").val()});
+		});
+		
+		
+		connect.on('Message', (data) =>{      // Response to creating room
+			msg = "<li>" + data.success + " : " + data.msg + "</li>";
+			$(msg).appendTo('#messages')
+		  <!-- $('#messages').text(msg); -->
+		  <!-- console.log (data); -->
+		});
+		
+		
+		connect.on ('Pseudo', (data) => {
+			pseudo = data.pseudo
+			$("#join-lobby").hide();
+			console.info(pseudo);	
+			$('#H1-Pseudo').text(pseudo);
+		});
 
 // message du serveur 
  connect.on('Message', (data) =>{      // Response to creating room

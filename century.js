@@ -99,14 +99,23 @@ var lobby = new LobbyClass ();
 // Quand une personne se connecte au serveur
 io.on('connection', function(connect) {
 
-    // ConnectID => socket.id
+    // ConnectID => connect.id
     cid = connect.id;
-    message = 'connect.id : ' + cid;
-    console.log (message);
-    //SessionID => socket.handshake.headers.cookie
-    sid = cookie.parse (connect.handshake.headers.cookie)['connect.sid'].substr(2, 32)
-    message = '      sid : ' + sid
-    console.log (message);
+    // message = 'CID : ' + cid;
+    // _Log (message);
+    //SessionID => connect.handshake.headers.cookie
+     sid = cookie.parse (connect.handshake.headers.cookie)['connect.sid'].substr(2, 32)
+    //sid = connect.handshake.headers
+    // message = 'SID : ' + sid
+    // _Log (message);
+	if (lobby.PlayerExist (sid)) { 
+		connect.emit('Pseudo', {pseudo:lobby.players_list[sid].GetPseudo()})
+		};
+    //io.emit('message', {pseudo:"SRV", msg:message})
+	
+	connect.on('ConnectPseudo', (data) => {lobby.AddPlayer(data,connect,sid)});
+    
+}); 
 
     
     // Test si le SID existe deja
@@ -119,4 +128,3 @@ io.on('connection', function(connect) {
 
     
 }); 
-
