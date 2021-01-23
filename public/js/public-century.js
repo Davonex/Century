@@ -18,7 +18,11 @@
  var InputPseudo = $("#input_pseudo");
 // Form to Add or Join room
  var DivJoin = $("#join-pseudo");
+ var H1Title =$("H1-Title");
 
+ var pseudo = "";
+ var room_name = ""
+ var room_id = ""
  
 
 
@@ -40,10 +44,7 @@ $("#submit-pseudo").click (function(){
 });
 
 
-connect.on('Pseudo',(data) => {
-   pseudo = data.pseudo
-   JoinPseudo.hide();
-});
+
  
 
 
@@ -59,32 +60,26 @@ connect.on('Pseudo',(data) => {
 		
 		
 		connect.on('Message', (data) =>{      // Response to creating room
-			msg = "<li>" + data.success + " : " + data.msg + "</li>";
-			$(msg).appendTo('#messages')
-		  <!-- $('#messages').text(msg); -->
-		  <!-- console.log (data); -->
+			_showInfo (data.success + " : " + data.msg)
 		});
 		
-		
+  
+
 		connect.on ('Pseudo', (data) => {
 			pseudo = data.pseudo
-			$("#join-lobby").hide();
+			DivJoin.hide();
 			console.info(pseudo);	
-			$('#H1-Pseudo').text(pseudo);
+			H1Title.text(pseudo);
 		});
 
-// message du serveur 
- connect.on('Message', (data) =>{      // Response to creating room
-   msg = "<li>" + data.success + " : " + data.msg + "</li>";
-   $(msg).appendTo(divTchat)
-  <!-- $('#divTchat').text(msg); -->
-  <!-- console.log (data); -->
-});
+
 
 
 
 connect.on('connect', function () {
-   console.info('successfully established a working and authorized connection : ' + connect.id);
+  _showInfo (connect.id);
+  
+
  });
 
  connect.on('data', function (data) {
@@ -96,4 +91,12 @@ connect.on('connect', function () {
 });
 
 
-console.log ("Page chargé : OK");
+function _showInfo (msg)
+{
+  $("<p>" + msg + "</p>").appendTo('#messages')
+  console.log ($('#messages').scrollTopMax);
+  console.info (msg);
+}
+
+
+_showInfo ("Page Chargé.1")

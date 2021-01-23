@@ -1,5 +1,6 @@
 
 const PlayerClass = require('./PlayerClass.js')
+const RoomClass = require('./RoomClass.js')
 
 
 
@@ -35,7 +36,32 @@ class LobbyClass {
 		// Tester si le player exist 
 		
 	}
-	
+	/*
+	**
+	**
+	*/
+	AddRoom (data,connect) {
+		// Check room_name
+		if (typeof(data.room_name) === 'undefined' ||  data.room_name === "" ){
+			this._log (connect,'Le speudo est absent ou invalide!', false)
+			//connect.emit('Message', {success:false, msg:'Le speudo est absent ou invalide!'})
+			 // console.log ( connect)
+		} 
+		// Check if room_name exist already
+		// else if (this.PlayerExist (sid)) {
+		// 	this.players_list[sid].SetPseudo (data.room_name)
+		// 	connect.emit('Pseudo', {room_name:data.room_name});
+		// 	this._log (connect,'Le SID ( '+sid+' ) existe deja!', false)
+		// 	this._log (connect,data.room_name + ' a été modifié', true)
+		// } 
+		else {
+			room = new RoomClass (data.room_name)
+			this.rooms_list[room.GetId()] = room
+			this._log (connect,data.room_name + ' a été cree', true)
+			connect.emit('Room', {room_id:room.GetId(),room_name:room.GetName() });
+		}
+
+	}
 	
 	/*
 	**

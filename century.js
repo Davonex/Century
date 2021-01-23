@@ -23,13 +23,6 @@ let server = app.listen(8333,"192.168.1.14", listen);
 // Websocket
 var io = require('socket.io')(server);
 
-
-
-// Class century
-var ALLPlayersClass = require('./server/ALLPlayersClass')
-var ALLPlayers = new ALLPlayersClass.ALLPlayers();
-
-
 function listen(){
   let host = server.address().address;
   let port = server.address().port;
@@ -37,12 +30,12 @@ function listen(){
 }
 
 // Create secret
-// app.use(session({
-//   secret: 'ssshhhhh',
-//   resave: false,
-//   saveUninitialized: true
-//   // cookie: { secure: true }
-// }));
+app.use(session({
+  secret: 'ssshhhhh',
+  resave: false,
+  saveUninitialized: true
+  // cookie: { secure: true }
+}));
 
 
 // the directory where the template files are located
@@ -74,18 +67,14 @@ app.get('/', function(req, res){
 });
 */
 
-//app.use('/js', express.static('public/js'));
-//app.use('/css', express.static('public/css'));
-
 // Files for client
 app.use(express.static('public')) 
-
-
-
 
 //  Defined Lobby
 const LobbyClass = require('./server/LobbyClass.js')
 var lobby = new LobbyClass ();
+
+
 
 
 // Quand une personne se connecte au serveur
@@ -96,22 +85,25 @@ io.on('connection', function(connect) {
     //SessionID => connect.handshake.headers.cookie
      let sid = cookie.parse (connect.handshake.headers.cookie)['connect.sid'].substr(2, 32)
 
+     console.log("CID:"+cid+"  SID:"+sid)
+
 	if (lobby.PlayerExist (sid)) { 
 		connect.emit('Pseudo', {pseudo:lobby.players_list[sid].GetPseudo()})
 		};
     //io.emit('message', {pseudo:"SRV", msg:message})
 	
 	connect.on('ConnectPseudo', (data) => {lobby.AddPlayer(data,connect,sid)});
-    
-
-
-    
+   
     // Test si le SID existe deja
     if (lobby.PlayerExist (sid)) { 
       connect.emit('Pseudo', {pseudo:lobby.players_list[sid].GetPseudo()})
       };
-   
-    
-    connect.on('ConnectPseudo', (data) => {lobby.AddPlayer(data,connect,sid)});
+  
 
+  connect.on('ConnectAddRoom', (data) => {
+      lobby.AddPlayer(data,connect,sid)
+      connect.emit('Pseudo', {pseudo:lobby.players_list[sid].GetPseudo()})
+      console.log(data)
+  });
+ 
   });     
