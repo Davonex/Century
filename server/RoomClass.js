@@ -1,10 +1,9 @@
 class RoomClass {
 	
 	constructor (room_name) {
-        this.players_list = {};
+    this.players_list = {};
 		this.name = room_name;
-        this._CreateId ();
-        this.name= name 
+    this._CreateId ();
 	}
     
     
@@ -15,11 +14,15 @@ class RoomClass {
 	
 	GetName () {
 		return this.name;
-    }
+  }
     
-    GetId () {
+  GetId () {
 		return this.id;
-    }
+  }
+
+  // AddPlayer(sid) {
+
+  // }
 
 
     _CreateId () {

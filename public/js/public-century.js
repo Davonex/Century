@@ -94,8 +94,8 @@ connect.on('connect', function () {
 function _showInfo (msg)
 {
   $("<p>" + msg + "</p>").appendTo('#messages')
-  console.log ($('#messages').scrollTopMax);
-  console.info (msg);
+  $('#messages').scrollTop = 9999999;
+    console.info (msg);
 }
 
 

@@ -1,3 +1,4 @@
+"use strict";
 
 class PlayerClass {
 	
@@ -5,7 +6,7 @@ class PlayerClass {
 		this.cid = cid;
 		this.sid = sid;
 		this.pseudo = pseudo;
-		this.roomid = "";
+		this.rid = "";
 	}
 	
 	SetPseudo (pseudo) {
@@ -14,6 +15,10 @@ class PlayerClass {
 	
 	GetPseudo () {
 		return this.pseudo;
+	}
+
+	SetRoomId (rid){
+		this.rid = rid;
 	}
 }
 

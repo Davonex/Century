@@ -70,6 +70,10 @@ app.get('/', function(req, res){
 // Files for client
 app.use(express.static('public')) 
 
+// Global Variable
+var cid = "";
+var sid = "";
+
 //  Defined Lobby
 const LobbyClass = require('./server/LobbyClass.js')
 var lobby = new LobbyClass ();
@@ -81,9 +85,9 @@ var lobby = new LobbyClass ();
 io.on('connection', function(connect) {
 
     // ConnectID => connect.id
-    let cid = connect.id;
+    cid = connect.id;
     //SessionID => connect.handshake.headers.cookie
-     let sid = cookie.parse (connect.handshake.headers.cookie)['connect.sid'].substr(2, 32)
+    sid = cookie.parse (connect.handshake.headers.cookie)['connect.sid'].substr(2, 32)
 
      console.log("CID:"+cid+"  SID:"+sid)
 
@@ -92,7 +96,7 @@ io.on('connection', function(connect) {
 		};
     //io.emit('message', {pseudo:"SRV", msg:message})
 	
-	connect.on('ConnectPseudo', (data) => {lobby.AddPlayer(data,connect,sid)});
+	//connect.on('ConnectPseudo', (data) => {lobby.AddPlayer(data,connect,sid)});
    
     // Test si le SID existe deja
     if (lobby.PlayerExist (sid)) { 
@@ -100,10 +104,34 @@ io.on('connection', function(connect) {
       };
   
 
-  connect.on('ConnectAddRoom', (data) => {
-      lobby.AddPlayer(data,connect,sid)
-      connect.emit('Pseudo', {pseudo:lobby.players_list[sid].GetPseudo()})
-      console.log(data)
+  connect.on('ConnectAddRoom', (data,callback) => {
+    _showvar("ConnectAddRoom",data);
+      //Add player if not existe
+      let pseudo = lobby.AddPlayer(data,connect,sid)
+      if (pseudo.error) {
+        callback (pseudo.error)
+      }
+      // Add room and create room_id
+      let room = lobby.AddRoom(data,connect,sid)
+      if (room.error) {
+        callback (room.error)
+      }
+      // Add player in new room
+      // Emit AddRoom
+      let dataToEmit ={
+        'pseudo' : pseudo.name ,
+        'room_name' : room.name,
+        'room_id' : room.id
+      }
+      connect.emit('AddRoom', dataToEmit)
+      
   });
  
-  });     
+  });  
+  
+  function _showvar (msg , variable)
+  {
+    console.log( msg + '\n');
+    console.log (variable)
+    console.log ("------"+'\n');
+  }
