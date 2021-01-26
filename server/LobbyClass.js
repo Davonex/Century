@@ -41,6 +41,11 @@ class LobbyClass {
 		
 	}
 
+	
+	
+	GetPlayer (sid) {
+		return  (this.players_list[sid]);
+	}
 	/*
 	** Join Player (sid) in the room (rid)
 	**
