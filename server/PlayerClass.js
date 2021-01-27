@@ -3,23 +3,35 @@
 class PlayerClass {
 	
 	constructor (cid,sid,pseudo){
-		this.cid = cid;
-		this.sid = sid;
-		this.pseudo = pseudo;
-		this.rid = "";
+		this._cid = cid;
+		this._sid = sid;
+		this._pseudo = pseudo;
+		this._rid = "";
 	}
 	
-	SetPseudo (pseudo) {
-		this.pseudo = pseudo;
+	changepseudo(pseudo) {
+		this._pseudo = pseudo;
 	}
 	
-	GetPseudo () {
-		return this.pseudo;
+	get pseudo() {
+		return (this._pseudo);
 	}
 
-	SetRoomId (rid){
-		this.rid = rid;
+	set roomid (rid){
+		this._rid = rid;
 	}
+
+	get roomid(){
+		return (this._rid);
+	}
+
+
+	_showvar (msg , variable)
+	{
+	  console.log("-----PlayerClass."+ msg + '\n');
+	  console.log (variable)
+	}
+
 }
 
 module.exports = PlayerClass;

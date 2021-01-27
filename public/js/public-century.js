@@ -18,7 +18,7 @@
  var InputPseudo = $("#input_pseudo");
 // Form to Add or Join room
  var DivJoin = $("#join-pseudo");
- var H1Title =$("H1-Title");
+ var H1Title =$("#H1-Title");
 
  var pseudo = "";
  var room_name = ""
@@ -72,7 +72,14 @@ $("#submit-pseudo").click (function(){
 			H1Title.text(pseudo);
 		});
 
+    connect.on ('AddRoom', (data) => {
+      pseudo = data.pseudo;
+      room_name = data.room_name;
+      room_id = data.room_id;
+			DivJoin.hide();
 
+			H1Title.text(pseudo + " : " + room_name);
+    });
 
 
 
@@ -99,4 +106,4 @@ function _showInfo (msg)
 }
 
 
-_showInfo ("Page Chargé.1")
+_showInfo ("ok - Page Chargé")

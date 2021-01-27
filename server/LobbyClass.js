@@ -1,3 +1,5 @@
+"use strict";
+
 
 const PlayerClass = require('./PlayerClass.js')
 const RoomClass = require('./RoomClass.js')
@@ -14,49 +16,59 @@ class LobbyClass {
 	
 	
 	/*
-	**
+	** Add player in the Lobby list with him SID
 	**
 	*/
 	AddPlayer (data,connect,sid) {
 		// 
-		this._showvar("Player_list",this.players_list );
+		//this._showvar("AddPlayer : Player_list",this.players_list );
 		if (typeof(data.pseudo) === 'undefined' ||  data.pseudo === "" ){
 			this._log (connect,'Le speudo est absent ou invalide!', false)
 			//connect.emit('Message', {success:false, msg:'Le speudo est absent ou invalide!'})
 			 // console.log ( connect)
-			 let dataReturn = {'error': 'Room name is not valid'}
-			 return (dataReturn);
+			 return ({'error': 'Room name is not valid'});
+
 		} else if (this.PlayerExist (sid)) {
 			this.players_list[sid].SetPseudo (data.pseudo)
 			connect.emit('Pseudo', {pseudo:data.pseudo});
 			//this._log (connect,'Le SID ( '+sid+' ) existe deja!', false)
 			this._log (connect,data.pseudo + ' existait et  a été modifié', true)
 			return ({'name' : data.pseudo});
+
 		} else {
 			this.players_list[sid] = new PlayerClass (connect.id,sid,data.pseudo)
 			this._log (connect,data.pseudo + ' a été ajouté', true)
 			return ( {'name' : data.pseudo});
+
 		}
-		// Tester si le player exist 
 		
 	}
 
-	
-	
-	GetPlayer (sid) {
+	/*
+	**
+	**
+	*/
+	getplayer(sid) {
 		return  (this.players_list[sid]);
 	}
+
+
 	/*
 	** Join Player (sid) in the room (rid)
 	**
 	*/
 	JoinPlayer (sid,rid) {
-		this.players_list[sid].SetRoomId(rid);
-		this.rooms_list.push(rid)
-		console.log (this.rooms_list)
+		// Set Room_id in Player 
+		this.players_list[sid].id = rid;
+		// Add Player_id in  room 
+		this.rooms_list[rid].AddPlayer(sid)
+
+		// this._showvar ("JoinPlayer : rooms_list",this.rooms_list)
+		// this._showvar ("JoinPlayer : players_list",this.players_list)
 	}
 
 
+	
 	/*
 	**
 	**
@@ -78,19 +90,31 @@ class LobbyClass {
 		// 	this._log (connect,data.room_name + ' a été modifié', true)
 		// } 
 		else {
-			let room = new RoomClass (data.room_name)
-			this.rooms_list[room.GetId()] = room
-			this._log (connect,data.room_name + ' a été cree', true)
+				// Creation de la room
+			let room = new RoomClass (data.room_name) 
+			this.rooms_list[room.id] = room;
+				// this._showvar('AddRoom: Create room',room)
+				// joindre le player à la room
+			this.JoinPlayer (sid,room.id)
+			//this._log (connect,data.room_name + ' a été cree', true)
+				//this._showvar('AddRoom : AddRoom',room)
+				//this._showvar('AddRoom : player',this.players_list[sid] )
 			let dataReturn = {
-				'id': room.GetId(),
-				'name': room.GetName() 
+				'id': room.id,
+				'name': room.name 
 			};
 			return (dataReturn);
-			//connect.emit('Room', {room_id:room.GetId(),room_name:room.GetName() });
 		}
 
 	}
 	
+	/*
+	** Get the room
+	**
+	*/
+	getroom (rid) {
+		return  (this.rooms_list[rid]);
+	}
 	/*
 	**
 	**
@@ -111,7 +135,12 @@ class LobbyClass {
 	*/
 	PlayerRoomExist (sid) {
 		if (this.PlayerExist(sid) && typeof (this.players_list[sid]) != 'undefined') {
-			return this.players_list[sid].roomid;
+			let id_room = this.players_list[sid].id;
+			if ( id_room === "") {
+				return false }
+			else {
+				return id_room;
+			}
 		}
 		else { 
 			return false;
@@ -124,7 +153,7 @@ class LobbyClass {
 	**
 	**
 	*/
-	listeRoomId () {
+	listeRoom () {
 
 	}
 	//
@@ -137,9 +166,8 @@ class LobbyClass {
 
 	_showvar (msg , variable)
 	{
-	  console.log( msg + '\n');
+	  console.log("----LobbyClass."+ msg + '\n');
 	  console.log (variable)
-	  console.log ("------"+'\n');
 	}
 	
 	

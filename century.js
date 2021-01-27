@@ -100,17 +100,30 @@ io.on('connection', function(connect) {
    
     // Test si le SID existe deja
     if (lobby.PlayerExist (sid)) { 
-      connect.emit('Pseudo', {pseudo:lobby.players_list[sid].GetPseudo()})
+       // connect.emit('Pseudo', {pseudo:lobby.players_list[sid].GetPseudo()})
+       let Player = lobby.GetPlayer (sid)
+       _showvar('Player('+sid+')',Player);
+       if (Player.PlayerRoomExist (sid)) {
+         // Room Existe
+         let Room = lobby.GetRoom (Player.GetRoomId(sid))
+         let dataToEmit ={
+          'pseudo' : Player.GetPseudo ,
+          'room_name' : Room.GetId,
+          'room_id' : Player.GetRoomId ()
+        }
+        //connect.emit('JoinRoom', dataToEmit)
+        _showvar("OnConnection : dataToEmit",dataToEmit);
+       }
       };
   
 
   connect.on('ConnectAddRoom', (data,callback) => {
-    _showvar("ConnectAddRoom",data);
       //Add player if not existe
-      let pseudo = lobby.AddPlayer(data,connect,sid)
-      if (pseudo.error) {
-        callback (pseudo.error)
+      let player = lobby.AddPlayer(data,connect,sid)
+      if (player.error) {
+        callback (player.error)
       }
+
       // Add room and create room_id
       let room = lobby.AddRoom(data,connect,sid)
       if (room.error) {
@@ -119,19 +132,23 @@ io.on('connection', function(connect) {
       // Add player in new room
       // Emit AddRoom
       let dataToEmit ={
-        'pseudo' : pseudo.name ,
+        'pseudo' : player.pseudo ,
         'room_name' : room.name,
         'room_id' : room.id
       }
       connect.emit('AddRoom', dataToEmit)
       
   });
+
+  connect.on('ListRoom',(data,callback) => {
+      
+  });
+
  
   });  
   
   function _showvar (msg , variable)
   {
-    console.log( msg + '\n');
+    console.log("--main." + msg + '\n');
     console.log (variable)
-    console.log ("------"+'\n');
   }

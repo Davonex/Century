@@ -98,7 +98,7 @@ $("#btn-add-room").click(function() {
                   } else {
                   // JOIN ROOM SELECT 
                     console.log("emit ADD_ROOM : " + $("#input-add-room-name").val() );
-                    alert ("emit ADD_ROOM : " + $("#input-add-room-name").val() );
+                    // alert ("emit ADD_ROOM : " + $("#input-add-room-name").val() );
                     connect.emit('ConnectAddRoom', { pseudo: $("#input-pseudo").val(), room_name: $("#input-add-room-name").val() },function(error, message){
                       console.log(error);
                       console.log(message);
