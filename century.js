@@ -122,12 +122,14 @@ io.on('connection', function(connect) {
       let player = lobby.AddPlayer(data,connect,sid)
       if (player.error) {
         callback (player.error)
+        return;
       }
 
       // Add room and create room_id
       let room = lobby.AddRoom(data,connect,sid)
       if (room.error) {
         callback (room.error)
+        return;
       }
       // Add player in new room
       // Emit AddRoom
@@ -141,7 +143,7 @@ io.on('connection', function(connect) {
   });
 
   connect.on('ListRoom',(data,callback) => {
-      
+
   });
 
  
